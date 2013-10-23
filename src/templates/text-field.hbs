@@ -1,0 +1,78 @@
+{{view innerTextFieldClass
+    valueBinding="inputValue"
+    placeholderBinding="placeholder"
+    nameBinding="inputName"
+    disabledBinding="disabled"
+    autocompleteBinding="autocomplete"
+    readonlyBinding="readonly"
+    typeBinding="inputType"
+}}
+
+{{#if grow}}
+    <div class="mirror">{{mirrorValue}}</div>
+{{/if}}
+
+{{#if hasPreCt}}
+    <div class="pre-ct" {{action didClickPreOrPostCt target="view"}}>
+
+        {{#if hasPickerPre}}
+            <div class="picker-ct">
+                <div class="picker1" {{action didClickPicker1 target="view" bubbles=false}}>
+                    {{svgb picker1Icon}}
+                </div>
+                {{#if picker2Icon}}
+                    <div class="picker2" {{action didClickPicker2 target="view" bubbles=false}}>
+                        {{svgb picker2Icon}}
+                    </div>
+                {{/if}}
+            </div>
+        {{/if}}
+
+        {{#if prefix}}
+            <div class="prefix">
+                {{prefix}}
+            </div>
+        {{/if}}
+
+        {{#if icon}}
+            <div class="icon">
+                {{#if iconIsSvg}}
+                    {{svgb icon}}
+                {{else}}
+                    <img {{bindAttr src=icon}}>
+                {{/if}}
+            </div>
+        {{/if}}
+    </div>
+{{/if}}
+
+{{#if hasPostCt}}
+    <div class="post-ct" {{action didClickPreOrPostCt target="view"}}>
+        
+        {{#if suffix}}
+            <div class="suffix">
+                {{suffix}}
+            </div>
+        {{/if}}
+        
+        {{#if reset}}
+            <div class="reset" {{action didClickReset target="view" bubbles=false}}>
+                {{svg "icons/circle-cross"}}
+            </div>
+        {{/if}}
+
+        {{#if hasPickerPost}}
+            <div class="picker-ct">
+                <div class="picker1" {{action didClickPicker1 target="view" bubbles=false}}>
+                    {{svgb picker1Icon}}
+                </div>
+                {{#if picker2Icon}}
+                    <div class="picker2" {{action didClickPicker2 target="view" bubbles=false}}>
+                        {{svgb picker2Icon}}
+                    </div>
+                {{/if}}
+            </div>
+        {{/if}}
+        
+    </div>
+{{/if}}

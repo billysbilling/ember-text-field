@@ -1,0 +1,259 @@
+@mixin text-field {
+
+    .text-field.grow .mirror,
+    .text-field input {
+        @include text-input-style;
+    }
+    
+    .text-field.small.grow .mirror,
+    .text-field.small input {
+        padding: $small-field-padding-top $small-field-padding-right $small-field-padding-bottom $small-field-padding-left;
+        font-size: $small-field-font-size;
+    }
+
+    .text-field:not(.small) {
+        @include text-field-size-style(
+            $height: $field-height,
+            $padding: $field-padding,
+            $padding-top: $field-padding-top,
+            $padding-right: $field-padding-right,
+            $padding-bottom: $field-padding-bottom,
+            $padding-left: $field-padding-left,
+            $picker-width: $field-picker-width
+        );
+    }
+    
+    .text-field.small {
+        @include text-field-size-style(
+            $height: $small-field-height,
+            $padding: $small-field-padding,
+            $padding-top: $small-field-padding-top,
+            $padding-right: $small-field-padding-right,
+            $padding-bottom: $small-field-padding-bottom,
+            $padding-left: $small-field-padding-left,
+            $picker-width: $small-field-picker-width
+        );
+    }
+}
+
+@mixin text-input-style {
+    font-family: $font-family;
+    font-size: $field-font-size;
+    font-weight: 400;
+    padding: $field-padding-top $field-padding-right $field-padding-bottom $field-padding-left;
+    @include border-radius(3px);
+    margin: 0px;
+    background-color: #fff;
+    border: 1px solid $border-gray;
+    color: $font-color;
+    @include transition((background-color 0.1s linear, border-color 0.1s, linear));
+
+    @include placeholder-selector {
+        color: $gray;
+        font-weight: 400;
+    }
+
+    &:focus {
+        outline: none;
+        background-color: #fff;
+        border: 1px solid $blue-light;
+    }
+
+    &:disabled {
+        background: #fff;
+        color: $gray-light;
+
+        @include placeholder-selector {
+            color: $gray-light;
+        }
+    }
+}
+
+@mixin text-field-size-style(
+    $height,
+    $padding,
+    $padding-top,
+    $padding-right,
+    $padding-bottom,
+    $padding-left,
+    $picker-width
+) {
+
+    position: relative;
+    display: inline-block;
+
+    input {
+        width: 100%;
+    }
+
+    &.align-right {
+        input {
+            text-align: right;
+        }
+    }
+
+    &.grow {
+        input {
+            z-index: 2;
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            width: 100%;
+            display: block;
+        }
+        .mirror {
+            z-index: 1;
+            position: relative;
+            @include opacity(0);
+            display: block;
+            line-height: $height - $padding-top - $padding-bottom - 2*1px;
+            white-space: pre;
+        }
+    }
+
+    .pre-ct, .post-ct {
+        cursor: text;
+        position: absolute;
+        z-index: 3;
+        top: 0px;
+        @include display-inline-flex;
+    }
+    .pre-ct {
+        left: 0px;
+    }
+    .post-ct {
+        right: 0px;
+    }
+
+    .reset {
+        @include unselectable;
+        cursor: pointer;
+        padding: 0px $padding;
+        width: 16px + $padding*2;
+        height: $height;
+        visibility: hidden;
+        .svg-circle {
+            fill: $gray;
+        }
+        &:hover {
+            .svg-circle {
+                fill: lighten($gray, 10%);
+            }
+        }
+    }
+    &.has-value {
+        .reset {
+            visibility: visible;
+        }
+    }
+
+    .prefix, .suffix {
+        @include unselectable;
+        cursor: text;
+        color: $gray;
+        padding: (1px + $padding) 0px $padding 0px;
+        line-height: $height - $padding-top - $padding-bottom - 2*1px;
+        font-size: $field-font-size;
+    }
+    .prefix {
+        padding-left: $padding;
+        padding-right: 3px;
+    }
+    .suffix {
+        padding-right: $padding;
+        padding-left: 3px;
+    }
+
+    .picker-ct {
+        @include unselectable;
+    }
+    .picker1, .picker2 {
+        $picker-padding: ($height - $picker-width)/2;
+        cursor: pointer;
+        padding: 0px $picker-padding;
+        width: $picker-width + 2*$picker-padding;
+        height: $height;
+
+        .svg-main {
+            fill: $blue-gray-light;
+        }
+
+        &:hover {
+            .svg-main {
+                fill: $blue;
+            }
+        }
+    }
+    &.dual-pickerfield {
+        .picker1 {
+            height: $height/2;
+        }
+        .picker2 {
+            height: $height/2;
+        }
+    }
+
+    &.search {
+        input {
+            @include border-radius($height);
+        }
+    }
+
+    .icon {
+        $icon-size: 16px;
+
+        @include unselectable;
+        padding: 0px $padding 0px ($padding+3px);
+        width: $icon-size + $padding*2 + 3px;
+        height: $height;
+
+        img {
+            display: block;
+            margin: ($height - $icon-size) / 2 auto 0 auto;
+            width: $icon-size;
+        }
+
+        .svg-magnifier {
+            fill: $gray;
+        }
+    }
+
+    &.required:not(.disabled):not(.has-value):not(.has-error) {
+        input:not(:focus) {
+            background-color: $background-gray;
+        }
+    }
+
+    &.block {
+        display: block;
+    }
+
+    &.has-error {
+        input {
+            background-color: $yellow-xlight;
+            border-color: $yellow-light;
+        }
+    }
+
+    &.has-error-highlight {
+        input {
+            border-color: $red;
+        }
+    }
+
+    &.disabled {
+        .picker1, .picker2 {
+            cursor: default;
+
+            .svg-main, &:hover .svg-main {
+                fill: $gray-light;
+            }
+        }
+
+        .prefix, .suffix {
+            cursor: default;
+            color: $gray-light;
+        }
+
+    }
+}
