@@ -54,6 +54,11 @@
         font-weight: 400;
     }
 
+    ::-webkit-inner-spin-button, ::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
     &:focus {
         outline: none;
         background-color: #fff;
