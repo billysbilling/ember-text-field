@@ -47,6 +47,7 @@
     border: 1px solid $border-gray;
     color: $font-color;
     @include transition((background-color 0.1s linear, border-color 0.1s, linear));
+    -webkit-appearance: none;
 
     @include placeholder-selector {
         color: $gray;
