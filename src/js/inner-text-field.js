@@ -1,3 +1,3 @@
 module.exports = Em.TextField.extend({
-    attributeBindings: ['type', 'value', 'name', 'disabled', 'autocomplete', 'readonly']
+    attributeBindings: ['type', 'value', 'name', 'disabled', 'autocomplete', 'readonly', 'inputmode']
 });

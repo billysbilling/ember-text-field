@@ -26,6 +26,8 @@ module.exports = Em.Component.extend(require('ember-field-mixin'), {
     readonly: null,
     
     inputType: 'text',
+
+    inputmode: null,
     
     width: null,
     
