@@ -1,4 +1,4 @@
-var i18n = require('i18n');
+var i18nContext = require('i18n-context');
 
 module.exports = Em.Component.extend(require('ember-field-mixin'), {
     template: require('../templates/text-field'),
@@ -7,7 +7,7 @@ module.exports = Em.Component.extend(require('ember-field-mixin'), {
     
     attributeBindings: ['style'],
 
-    placeholder: i18n.tProperty('placeholder'),
+    placeholder: i18nContext.tProperty('placeholder'),
     
     name: null,
     
@@ -227,8 +227,8 @@ module.exports = Em.Component.extend(require('ember-field-mixin'), {
         return (icon && !icon.match(/\.(png|jpg)$/));
     }.property('icon'),
     
-    prefix: i18n.tProperty('prefix'),
-    suffix: i18n.tProperty('suffix'),
+    prefix: i18nContext.tProperty('prefix'),
+    suffix: i18nContext.tProperty('suffix'),
     
     pickerPosition: 'post',
     picker1Icon: null,
