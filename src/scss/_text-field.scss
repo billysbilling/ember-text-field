@@ -1,3 +1,6 @@
+$text-field-border: 1px solid $blue-gray-light;
+$text-field-box-shadow: inset 0 1px 5px rgba(#b3c3cb, 0.3);
+
 @mixin text-field {
 
     .text-field.grow .mirror,
@@ -39,15 +42,16 @@
 @mixin text-input-style {
     font-family: $font-family;
     font-size: $field-font-size;
-    font-weight: 400;
+    font-weight: $field-font-weight;
     padding: $field-padding-top $field-padding-right $field-padding-bottom $field-padding-left;
     @include border-radius(3px);
     margin: 0px;
     background-color: #fff;
-    border: 1px solid $border-gray;
-    color: $font-color;
+    border: $text-field-border;
+    color: $blue-gray-dark;
     @include transition((background-color 0.1s linear, border-color 0.1s, linear));
     -webkit-appearance: none;
+    @include box-shadow($text-field-box-shadow);
 
     @include placeholder-selector {
         color: $gray;
@@ -66,8 +70,9 @@
     }
 
     &:disabled {
-        background: #fff;
-        color: $gray-light;
+        @include box-shadow(none);
+        border-color: transparent; //Preserve layout
+        background: #f7fafc;
 
         @include placeholder-selector {
             color: $gray-light;
@@ -224,20 +229,14 @@
         }
     }
 
-    &.required:not(.disabled):not(.has-value):not(.has-error) {
-        input:not(:focus) {
-            background-color: $background-gray;
-        }
-    }
-
     &.block {
         display: block;
     }
 
     &.has-error {
         input {
-            background-color: $yellow-xlight;
-            border-color: $yellow-light;
+            background-color: transparentize($red, 0.9);
+            border-color: $red;
         }
     }
 
@@ -252,13 +251,13 @@
             cursor: default;
 
             .svg-main, &:hover .svg-main {
-                fill: $gray-light;
+                fill: $blue-gray-light;
             }
         }
 
         .prefix, .suffix {
             cursor: default;
-            color: $gray-light;
+            color: $blue-gray-light;
         }
 
     }
