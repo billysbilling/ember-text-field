@@ -1,5 +1,5 @@
 $text-field-border: 1px solid $blue-gray-light;
-$text-field-box-shadow: inset 0 1px 5px rgba(#b3c3cb, 0.3);
+$text-field-box-shadow: inset 0px 5px 5px -5px rgba(#b3c3cb, 0.3);
 
 @mixin text-field {
 
@@ -71,12 +71,7 @@ $text-field-box-shadow: inset 0 1px 5px rgba(#b3c3cb, 0.3);
 
     &:disabled {
         @include box-shadow(none);
-        border-color: transparent; //Preserve layout
         background: #f7fafc;
-
-        @include placeholder-selector {
-            color: $gray-light;
-        }
     }
 }
 
@@ -95,6 +90,7 @@ $text-field-box-shadow: inset 0 1px 5px rgba(#b3c3cb, 0.3);
 
     input {
         width: 100%;
+        height: $height;
     }
 
     &.align-right {
@@ -186,7 +182,7 @@ $text-field-box-shadow: inset 0 1px 5px rgba(#b3c3cb, 0.3);
         height: $height;
 
         .svg-main {
-            fill: $blue-gray-light;
+            fill: $blue-gray;
         }
 
         &:hover {
@@ -251,14 +247,12 @@ $text-field-box-shadow: inset 0 1px 5px rgba(#b3c3cb, 0.3);
             cursor: default;
 
             .svg-main, &:hover .svg-main {
-                fill: $blue-gray-light;
+                fill: transparent;
             }
         }
 
         .prefix, .suffix {
             cursor: default;
-            color: $blue-gray-light;
         }
-
     }
 }
