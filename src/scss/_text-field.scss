@@ -181,6 +181,11 @@ $text-field-box-shadow: inset 0px 5px 5px -5px rgba(#b3c3cb, 0.3);
         width: $picker-width + 2*$picker-padding;
         height: $height;
 
+        svg {
+            height: 100%;
+            width: 100%;
+        }
+
         .svg-main {
             fill: $blue-gray;
         }
@@ -203,6 +208,13 @@ $text-field-box-shadow: inset 0px 5px 5px -5px rgba(#b3c3cb, 0.3);
     &.search {
         input {
             @include border-radius($height);
+        }
+
+        .icon {
+            svg {
+                height: 100%;
+                width: 100%;
+            }
         }
     }
 
