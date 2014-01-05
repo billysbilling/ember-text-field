@@ -69,18 +69,23 @@ module.exports = Em.Component.extend(require('ember-field-mixin'), {
         input.keydown(function(e) {
             Em.run(function() {
                 self.didPressKeyDown(e);
-            })
+            });
         });
         input.focus(function() {
             Em.run(function() {
                 self.didFocus();
-            })
+            });
         });
         input.blur(function() {
             Em.run(function() {
                 self.didBlur();
-            })
+            });
         });
+        //IE10 has a placeholder position bug on initial display--this fixes it.
+        if (this.get('placeholder')) {
+            input.attr('placeholder', '');
+            input.attr('placeholder', this.get('placeholder'));
+        }
     },
 
     eventManager: {
