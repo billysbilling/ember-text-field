@@ -1,4 +1,5 @@
-var i18nContext = require('i18n-context');
+var i18nContext = require('i18n-context'),
+    ieDetect = require('ie-detect');
 
 module.exports = Em.Component.extend(require('ember-field-mixin'), {
     template: require('../templates/text-field'),
@@ -81,10 +82,22 @@ module.exports = Em.Component.extend(require('ember-field-mixin'), {
                 self.didBlur();
             });
         });
-        //IE10 has a placeholder position bug on initial display--this fixes it.
-        if (this.get('placeholder')) {
-            input.attr('placeholder', '');
-            input.attr('placeholder', this.get('placeholder'));
+        //IE10 has a position bug for placeholders and values
+        if (ieDetect.isIe && ieDetect.version === 10) {
+            var el = input.get(0),
+                resetVal = function(targetEl) {
+                    var value = el.value;
+                    targetEl.value = '';
+                    targetEl.value = value;
+                };
+            if (this.get('placeholder')) {
+                el.placeholder = '';
+                el.placeholder = this.get('placeholder');
+            }
+            input.on('blur', function(e) {
+                resetVal(e.target);
+            });
+            resetVal(el);
         }
     },
 
