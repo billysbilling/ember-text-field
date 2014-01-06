@@ -63,6 +63,11 @@ $text-field-box-shadow: inset 0px 5px 5px -5px rgba(#b3c3cb, 0.3);
         margin: 0;
     }
 
+    &::-ms-clear {
+        width : 0;
+        height: 0;
+    }
+
     &:focus {
         outline: none;
         background-color: #fff;
