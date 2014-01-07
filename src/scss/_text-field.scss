@@ -185,6 +185,8 @@ $text-field-box-shadow: inset 0px 5px 5px -5px rgba(#b3c3cb, 0.3);
         padding: 0px $picker-padding;
         width: $picker-width + 2*$picker-padding;
         height: $height;
+        //IE fix--not clickable without a background
+        background-color: rgba(black, 0);
 
         svg {
             height: 100%;
