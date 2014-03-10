@@ -22,6 +22,6 @@
     "ember-field-mixin": "billysbilling/ember-field-mixin#>=1.0 <2.0",
     "i18n-context": "billysbilling/i18n-context#>=1.0 <2.0",
     "ie-detect": "billysbilling/ie-detect#>=1.0 <2.0",
-    "style-guide": "billysbilling/style-guide#>=1.0 <2.0"
+    "style-guide": "billysbilling/style-guide#>=1.1.4 <2.0"
   }
 }
