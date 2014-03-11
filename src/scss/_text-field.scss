@@ -7,7 +7,7 @@ $text-field-box-shadow: inset 0px 5px 5px -5px rgba(#b3c3cb, 0.3);
     .text-field input {
         @include text-input-style;
     }
-    
+
     .text-field.small.grow .mirror,
     .text-field.small input {
         padding: $small-field-padding-top $small-field-padding-right $small-field-padding-bottom $small-field-padding-left;
@@ -25,7 +25,7 @@ $text-field-box-shadow: inset 0px 5px 5px -5px rgba(#b3c3cb, 0.3);
             $picker-width: $field-picker-width
         );
     }
-    
+
     .text-field.small {
         @include text-field-size-style(
             $height: $small-field-height,
@@ -74,7 +74,7 @@ $text-field-box-shadow: inset 0px 5px 5px -5px rgba(#b3c3cb, 0.3);
         border: 1px solid $blue-light;
     }
 
-    &:disabled {
+    &:disabled, &[readonly] {
         @include box-shadow(none);
         background: #f7fafc;
     }
@@ -261,7 +261,7 @@ $text-field-box-shadow: inset 0px 5px 5px -5px rgba(#b3c3cb, 0.3);
         }
     }
 
-    &.disabled {
+    &.disabled, &.readonly {
         .picker1, .picker2 {
             cursor: default;
 

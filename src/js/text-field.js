@@ -3,56 +3,58 @@ var i18nContext = require('i18n-context'),
 
 module.exports = Em.Component.extend(require('ember-field-mixin'), {
     template: require('../templates/text-field'),
-    
-    classNameBindings: [':text-field', 'small', 'search', 'block', 'value:has-value', 'hasFocus:focus', 'grow', 'reset:has-reset', 'alignClass', 'picker1Icon:pickerfield', 'picker2Icon:dual-pickerfield', 'disabled', 'required', 'flexClass'],
-    
+
+    classNameBindings: [':text-field', 'small', 'search', 'block', 'value:has-value', 'hasFocus:focus', 'grow', 'reset:has-reset', 'alignClass', 'picker1Icon:pickerfield', 'picker2Icon:dual-pickerfield', 'disabled', 'readonly', 'required', 'flexClass'],
+
     attributeBindings: ['style'],
 
     placeholder: i18nContext.tProperty('placeholder'),
-    
+
     name: null,
-    
+
     inputNamePrefix: '',
-    
+
     inputName: function() {
         return this.get('inputNamePrefix') + this.get('name');
     }.property('name', 'inputNamePrefix'),
-    
+
     disabled: false,
-    
+
+    readonly: false,
+
     required: false,
-    
+
     autocomplete: null,
-    
+
     readonly: null,
-    
+
     inputType: 'text',
 
     inputmode: null,
-    
+
     width: null,
-    
+
     flex: null,
-    
+
     flexClass: function() {
         var flex = this.get('flex');
         return flex ? 'flex-'+flex : null;
     }.property('flex'),
-    
+
     selectOnFocus: false,
 
     small: false,
-    
+
     search: false,
-    
+
     block: false,
-    
+
     align: 'left',
-    
+
     alignClass: function() {
         return this.get('align') == 'right' ? 'align-right' : null;
     }.property('align'),
-    
+
     style: function() {
         var s = [],
             width = this.get('width');
@@ -61,7 +63,7 @@ module.exports = Em.Component.extend(require('ember-field-mixin'), {
         }
         return s.join(' ');
     }.property('width'),
-    
+
     didInsertElement: function() {
         this._super();
         var self = this,
@@ -109,7 +111,7 @@ module.exports = Em.Component.extend(require('ember-field-mixin'), {
             }
         }
     },
-    
+
     willDestroy: function() {
         this._super();
         clearTimeout(this._bufferTimeout);
@@ -127,7 +129,7 @@ module.exports = Em.Component.extend(require('ember-field-mixin'), {
             this.set('inputValue', '');
         }
     },
-    
+
     hasFocus: false,
     focus: function() {
         this.$('input').focus();
@@ -186,7 +188,7 @@ module.exports = Em.Component.extend(require('ember-field-mixin'), {
         this.updateMirror();
         this.fireBuffer();
     }.observes('inputValue'),
-    
+
     formatInputValue: function(value) {
         return value;
     },
@@ -208,7 +210,7 @@ module.exports = Em.Component.extend(require('ember-field-mixin'), {
     resetError: function() {
         this.set('error', null);
     },
-    
+
     bufferDelay: 200,
     _bufferedValue: null,
     bufferedValue: function(key, bufferedValue) {
@@ -235,19 +237,19 @@ module.exports = Em.Component.extend(require('ember-field-mixin'), {
             this.set('mirrorValue', this.get('inputValue') || this.get('placeholder') || ' ');
         }
     }.on('didInsertElement'),
-    
+
     icon: function() {
         return this.get('search') ? 'icons/magnifier' : null;
     }.property('search'),
-    
+
     iconIsSvg: function() {
         var icon = this.get('icon');
         return (icon && !icon.match(/\.(png|jpg)$/));
     }.property('icon'),
-    
+
     prefix: i18nContext.tProperty('prefix'),
     suffix: i18nContext.tProperty('suffix'),
-    
+
     pickerPosition: 'post',
     picker1Icon: null,
     picker2Icon: null,
@@ -271,13 +273,13 @@ module.exports = Em.Component.extend(require('ember-field-mixin'), {
         },
 
         didClickPicker1: function() {
-            if (!this.get('disabled')) {
+            if (!this.get('disabled') && !this.get('readonly')) {
                 this.didClickPicker1();
             }
         },
 
         didClickPicker2: function() {
-            if (!this.get('disabled')) {
+            if (!this.get('disabled') && !this.get('readonly')) {
                 this.didClickPicker2();
             }
         },
@@ -287,7 +289,7 @@ module.exports = Em.Component.extend(require('ember-field-mixin'), {
             this.focus();
         }
     },
-    
+
     didClickPicker1: Em.K,
 
     didClickPicker2: Em.K,
@@ -321,6 +323,6 @@ module.exports = Em.Component.extend(require('ember-field-mixin'), {
     paddingDependenciesDidChange: function() {
         Em.run.schedule('afterRender', this, this.adjustPadding);
     }.observes('prefix', 'suffix', 'reset', 'picker1Icon', 'icon'),
-    
+
     innerTextFieldClass: require('./inner-text-field')
 });
