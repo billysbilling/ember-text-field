@@ -274,4 +274,12 @@ $text-field-box-shadow: inset 0px 5px 5px -5px rgba(#b3c3cb, 0.3);
             cursor: default;
         }
     }
+
+    //If the .text-field is not readonly, but it has inputReadonly, then we undo the readonly style on the input element
+    &:not(.readonly) {
+        input[readonly] {
+            background-color: #fff;
+            @include box-shadow($text-field-box-shadow);
+        }
+    }
 }

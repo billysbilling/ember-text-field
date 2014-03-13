@@ -22,11 +22,11 @@ module.exports = Em.Component.extend(require('ember-field-mixin'), {
 
     readonly: false,
 
+    inputReadonly: Em.computed.alias('readonly'),
+
     required: false,
 
     autocomplete: null,
-
-    readonly: null,
 
     inputType: 'text',
 
