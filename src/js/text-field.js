@@ -226,7 +226,9 @@ module.exports = Em.Component.extend(require('ember-field-mixin'), {
         var self = this;
         clearTimeout(this._bufferTimeout);
         this._bufferTimeout = Em.run.later(function() {
-            self.set('_bufferedValue', self.get('inputValue'));
+            if (!self.get('isDestroying')) {
+                self.set('_bufferedValue', self.get('inputValue'));
+            }
         }, this.get('bufferDelay'));
     },
 
