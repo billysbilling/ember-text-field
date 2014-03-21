@@ -114,7 +114,7 @@ module.exports = Em.Component.extend(require('ember-field-mixin'), {
 
     willDestroy: function() {
         this._super();
-        clearTimeout(this._bufferTimeout);
+        Em.run.cancel(this._bufferTimeout);
     },
 
     didPressKeyDown: function(e) {
@@ -224,11 +224,9 @@ module.exports = Em.Component.extend(require('ember-field-mixin'), {
     }.property('_bufferedValue'),
     fireBuffer: function() {
         var self = this;
-        clearTimeout(this._bufferTimeout);
+        Em.run.cancel(this._bufferTimeout);
         this._bufferTimeout = Em.run.later(function() {
-            if (!self.get('isDestroying')) {
-                self.set('_bufferedValue', self.get('inputValue'));
-            }
+            self.set('_bufferedValue', self.get('inputValue'));
         }, this.get('bufferDelay'));
     },
 
