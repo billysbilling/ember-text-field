@@ -1,4 +1,5 @@
-var i18nContext = require('i18n-context'),
+var functionProxy = require('function-proxy'),
+    i18nContext = require('i18n-context'),
     ieDetect = require('ie-detect');
 
 module.exports = Em.Component.extend(require('ember-field-mixin'), {
@@ -101,6 +102,18 @@ module.exports = Em.Component.extend(require('ember-field-mixin'), {
             });
             resetVal(el);
         }
+        //Prevent loss of focus on picker click
+        this.$('.picker1, .picker2').on('mousedown', functionProxy(this._preventDefaultEvent, this));
+    },
+
+    willDestroyElement: function() {
+        this._super();
+        this.$('.picker1, .picker2').on('mousedown', functionProxy(this._preventDefaultEvent, this));
+    },
+
+    willDestroy: function() {
+        this._super();
+        Em.run.cancel(this._bufferTimeout);
     },
 
     eventManager: {
@@ -112,9 +125,8 @@ module.exports = Em.Component.extend(require('ember-field-mixin'), {
         }
     },
 
-    willDestroy: function() {
-        this._super();
-        Em.run.cancel(this._bufferTimeout);
+    _preventDefaultEvent: function(e) {
+        e.preventDefault();
     },
 
     didPressKeyDown: function(e) {
