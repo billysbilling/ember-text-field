@@ -1,4 +1,5 @@
-$text-field-border: 1px solid $input-border-gray;
+$text-field-border-size: 1px;
+$text-field-border: $text-field-border-size solid $blue-gray-light;
 $text-field-box-shadow: inset 0px 5px 5px -5px rgba(#b3c3cb, 0.3);
 
 @mixin text-field {
@@ -48,7 +49,8 @@ $text-field-box-shadow: inset 0px 5px 5px -5px rgba(#b3c3cb, 0.3);
     margin: 0px;
     background-color: #fff;
     border: $text-field-border;
-    color: $blue-gray-dark;
+    line-height: $line-height - $text-field-border-size*2;
+    color: $blue-gray-xdark;
     @include transition((background-color 0.1s linear, border-color 0.1s, linear));
     -webkit-appearance: none;
     @include box-shadow($text-field-box-shadow);
@@ -71,7 +73,7 @@ $text-field-box-shadow: inset 0px 5px 5px -5px rgba(#b3c3cb, 0.3);
     &:focus {
         outline: none;
         background-color: #fff;
-        border: 1px solid $blue-light;
+        border: $text-field-border-size solid $blue-light;
     }
 
     &:disabled, &[readonly] {
