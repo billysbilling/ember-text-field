@@ -53,7 +53,7 @@ module.exports = Em.Component.extend(require('ember-field-mixin'), {
     align: 'left',
 
     alignClass: function() {
-        return this.get('align') == 'right' ? 'align-right' : null;
+        return this.get('align') === 'right' ? 'align-right' : null;
     }.property('align'),
 
     style: function() {
@@ -157,7 +157,7 @@ module.exports = Em.Component.extend(require('ember-field-mixin'), {
         this.set('hasFocus', false);
         this.checkError();
         if (!this.get('error')) {
-            this.reformatInputValue()
+            this.reformatInputValue();
         }
     },
 
@@ -165,9 +165,11 @@ module.exports = Em.Component.extend(require('ember-field-mixin'), {
     value: function(key, value) {
         if (arguments.length >= 2) {
             value = this.manipulateValue(value);
-            this.set('_value', value);
-            var inputValue = this.formatInputValue(value);
-            this.set('_inputValue', inputValue);
+            if (value !== this.get('_value')) {
+                this.set('_value', value);
+                var inputValue = this.formatInputValue(value);
+                this.set('_inputValue', inputValue);
+            }
         } else {
             value = this.get('_value');
         }
@@ -266,10 +268,10 @@ module.exports = Em.Component.extend(require('ember-field-mixin'), {
     picker1Icon: null,
     picker2Icon: null,
     hasPickerPre: function() {
-        return (this.get('picker1Icon') && this.get('pickerPosition') == 'pre');
+        return (this.get('picker1Icon') && this.get('pickerPosition') === 'pre');
     }.property('picker1Icon', 'pickerPosition'),
     hasPickerPost: function() {
-        return (this.get('picker1Icon') && this.get('pickerPosition') == 'post');
+        return (this.get('picker1Icon') && this.get('pickerPosition') === 'post');
     }.property('picker1Icon', 'pickerPosition'),
 
     hasPreCt: function() {
@@ -310,10 +312,10 @@ module.exports = Em.Component.extend(require('ember-field-mixin'), {
         if (!this.defaultPadding) {
             this.defaultPadding = this.$('input').css('paddingLeft');
         }
-        return this.defaultPadding
+        return this.defaultPadding;
     },
     adjustPadding: function() {
-        if (this.get('state') != 'inDOM') {
+        if (this.get('state') !== 'inDOM') {
             return;
         }
         var input = this.$('input'),
