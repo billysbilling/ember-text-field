@@ -45,15 +45,16 @@ $text-field-box-shadow: inset 0px 5px 5px -5px rgba(#b3c3cb, 0.3);
     font-size: $field-font-size;
     font-weight: $field-font-weight;
     padding: $field-padding-top $field-padding-right $field-padding-bottom $field-padding-left;
-    @include border-radius(3px);
+    border-radius: 3px;
     margin: 0px;
     background-color: #fff;
     border: $text-field-border;
     line-height: $line-height - $text-field-border-size*2;
     color: $blue-gray-xdark;
-    @include transition((background-color 0.1s linear, border-color 0.1s, linear));
+    transition: background-color 0.1s linear, border-color 0.1s linear;
+    -webkit-transition: background-color 0.1s linear, border-color 0.1s linear;
     -webkit-appearance: none;
-    @include box-shadow($text-field-box-shadow);
+    box-shadow: $text-field-box-shadow;
 
     @include placeholder-selector {
         color: $gray;
@@ -77,7 +78,7 @@ $text-field-box-shadow: inset 0px 5px 5px -5px rgba(#b3c3cb, 0.3);
     }
 
     &:disabled, &[readonly] {
-        @include box-shadow(none);
+        box-shadow: none;
         background: #f7fafc;
     }
 }
@@ -118,7 +119,7 @@ $text-field-box-shadow: inset 0px 5px 5px -5px rgba(#b3c3cb, 0.3);
         .mirror {
             z-index: 1;
             position: relative;
-            @include opacity(0);
+            opacity: 0;
             display: block;
             line-height: $height - $padding-top - $padding-bottom - 2*1px;
             white-space: pre;
@@ -216,7 +217,7 @@ $text-field-box-shadow: inset 0px 5px 5px -5px rgba(#b3c3cb, 0.3);
 
     &.search {
         input {
-            @include border-radius($height);
+            border-radius: $height;
         }
 
         .icon {
@@ -281,7 +282,7 @@ $text-field-box-shadow: inset 0px 5px 5px -5px rgba(#b3c3cb, 0.3);
     &:not(.readonly) {
         input[readonly] {
             background-color: #fff;
-            @include box-shadow($text-field-box-shadow);
+            box-shadow: $text-field-box-shadow;
         }
     }
 }
