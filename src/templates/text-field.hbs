@@ -40,7 +40,7 @@
                 {{#if iconIsSvg}}
                     {{svgb icon}}
                 {{else}}
-                    <img {{bindAttr src=icon}}>
+                    <img {{bind-attr src=icon}}>
                 {{/if}}
             </div>
         {{/if}}
@@ -49,13 +49,13 @@
 
 {{#if hasPostCt}}
     <div class="post-ct" {{action didClickPreOrPostCt target="view"}}>
-        
+
         {{#if suffix}}
             <div class="suffix">
                 {{suffix}}
             </div>
         {{/if}}
-        
+
         {{#if reset}}
             <div class="reset" {{action didClickReset target="view" bubbles=false}}>
                 {{svg "icons/circle-cross"}}
@@ -74,6 +74,6 @@
                 {{/if}}
             </div>
         {{/if}}
-        
+
     </div>
 {{/if}}
