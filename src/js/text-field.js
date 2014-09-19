@@ -3,7 +3,7 @@ var functionProxy = require('function-proxy'),
     ieDetect = require('ie-detect');
 
 module.exports = Em.Component.extend(require('ember-field-mixin'), {
-    template: require('../templates/text-field'),
+    layout: require('../templates/text-field'),
 
     classNameBindings: [':text-field', 'small', 'search', 'block', 'value:has-value', 'hasFocus:focus', 'grow', 'reset:has-reset', 'alignClass', 'picker1Icon:pickerfield', 'picker2Icon:dual-pickerfield', 'disabled', 'readonly', 'required', 'flexClass'],
 
@@ -315,7 +315,7 @@ module.exports = Em.Component.extend(require('ember-field-mixin'), {
         return this.defaultPadding;
     },
     adjustPadding: function() {
-        if (this.get('state') !== 'inDOM') {
+        if (this.get('_state') !== 'inDOM') {
             return;
         }
         var input = this.$('input'),
