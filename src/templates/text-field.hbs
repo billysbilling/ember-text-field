@@ -15,20 +15,6 @@
 
 {{#if hasPreCt}}
     <div class="pre-ct" {{action 'didClickPreOrPostCt' target="view"}}>
-
-        {{#if hasPickerPre}}
-            <div class="picker-ct">
-                <div class="picker1" {{action 'didClickPicker1' target="view" bubbles=false}}>
-                    {{svgb picker1Icon}}
-                </div>
-                {{#if picker2Icon}}
-                    <div class="picker2" {{action 'didClickPicker2' target="view" bubbles=false}}>
-                        {{svgb picker2Icon}}
-                    </div>
-                {{/if}}
-            </div>
-        {{/if}}
-
         {{#if prefix}}
             <div class="prefix">
                 {{prefix}}
@@ -49,7 +35,6 @@
 
 {{#if hasPostCt}}
     <div class="post-ct" {{action 'didClickPreOrPostCt' target="view"}}>
-
         {{#if suffix}}
             <div class="suffix">
                 {{suffix}}
@@ -62,7 +47,7 @@
             </div>
         {{/if}}
 
-        {{#if hasPickerPost}}
+        {{#if picker1Icon}}
             <div class="picker-ct">
                 <div class="picker1" {{action 'didClickPicker1' target="view" bubbles=false}}>
                     {{svgb picker1Icon}}
@@ -74,6 +59,5 @@
                 {{/if}}
             </div>
         {{/if}}
-
     </div>
 {{/if}}

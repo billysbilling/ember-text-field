@@ -264,22 +264,15 @@ module.exports = Em.Component.extend(require('ember-field-mixin'), {
     prefix: i18nContext.tProperty('prefix'),
     suffix: i18nContext.tProperty('suffix'),
 
-    pickerPosition: 'post',
     picker1Icon: null,
     picker2Icon: null,
-    hasPickerPre: function() {
-        return (this.get('picker1Icon') && this.get('pickerPosition') === 'pre');
-    }.property('picker1Icon', 'pickerPosition'),
-    hasPickerPost: function() {
-        return (this.get('picker1Icon') && this.get('pickerPosition') === 'post');
-    }.property('picker1Icon', 'pickerPosition'),
 
     hasPreCt: function() {
-        return (this.get('prefix') || this.get('hasPickerPre') || this.get('icon'));
-    }.property('prefix', 'hasPickerPre', 'icon'),
+        return (this.get('prefix') || this.get('icon'));
+    }.property('prefix', 'icon'),
     hasPostCt: function() {
-        return (this.get('suffix') || this.get('reset') || this.get('hasPickerPost'));
-    }.property('suffix', 'reset', 'hasPickerPost'),
+        return (this.get('suffix') || this.get('reset') || this.get('picker1Icon'));
+    }.property('suffix', 'reset', 'picker1Icon'),
 
     actions: {
         didClickPreOrPostCt: function() {
@@ -308,23 +301,40 @@ module.exports = Em.Component.extend(require('ember-field-mixin'), {
 
     didClickPicker2: Em.K,
 
-    getDefaultPadding: function() {
-        if (!this.defaultPadding) {
-            this.defaultPadding = this.$('input').css('paddingLeft');
-        }
-        return this.defaultPadding;
-    },
     adjustPadding: function() {
         if (this.get('_state') !== 'inDOM') {
             return;
         }
-        var input = this.$('input'),
-            mirror = this.$('.mirror'),
-            preCt = this.$('.pre-ct'),
-            postCt = this.$('.post-ct'),
-            defaultPadding = this.getDefaultPadding(),
-            left = preCt.length ? preCt.width() : defaultPadding,
-            right = postCt.length ? postCt.width() : defaultPadding;
+
+        var left = 0
+        if (this.get('hasPreCt')) {
+            if (this.get('prefix')) {
+                left += this.$('.prefix').width() + 3 + 6
+            }
+            if (this.get('icon')) {
+                left += 31
+            }
+        } else {
+            left = 7
+        }
+
+        var right = 0
+        if (this.get('hasPostCt')) {
+            if (this.get('suffix')) {
+                right += this.$('.suffix').width() + 3 + 6
+            }
+            if (this.get('reset')) {
+                right += 28
+            }
+            if (this.get('picker1Icon')) {
+                right += 36
+            }
+        } else {
+            right = 7
+        }
+
+        var input = this.$('input')
+        var mirror = this.$('.mirror')
         var css = {
             paddingLeft: left,
             paddingRight: right

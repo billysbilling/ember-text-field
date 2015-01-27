@@ -155,6 +155,10 @@ $text-field-box-shadow: inset 0px 5px 5px -5px rgba(#b3c3cb, 0.3);
                 fill: lighten($gray, 10%);
             }
         }
+        svg {
+            width: 100%;
+            height: 100%;
+        }
     }
     &.has-value {
         .reset {
