@@ -198,6 +198,7 @@ module.exports = Em.Component.extend(require('ember-field-mixin'), {
         return inputValue;
     }.property('_inputValue'),
     inputValueDidChange: function() {
+        this.sendAction('change', this.get('inputValue'));
         this.resetError();
         this.updateMirror();
         this.fireBuffer();
