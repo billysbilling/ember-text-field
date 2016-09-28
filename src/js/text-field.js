@@ -252,6 +252,25 @@ module.exports = Em.Component.extend(require('ember-field-mixin'), {
         }
     }.on('didInsertElement'),
 
+    setupPickerMouseEvents: function() {
+        var self = this;
+        var picker1Tooltip = self.get('picker1Tooltip')
+        if (picker1Tooltip) {
+            this.$('.picker1').mouseenter(function() {
+                self.showTooltip(picker1Tooltip)
+            })
+            this.$('.picker1').mouseleave(self.container.lookup('util:tooltip').scheduleHide)
+        }
+
+        var picker2Tooltip = self.get('picker2Tooltip')
+        if (picker2Tooltip) {
+            this.$('.picker2').mouseenter(function() {
+                self.showTooltip(picker2Tooltip)
+            })
+            this.$('.picker2').mouseleave(self.container.lookup('util:tooltip').scheduleHide)
+        }
+    }.on('didInsertElement'),
+
     icon: function() {
         return this.get('search') ? 'icons/magnifier' : null;
     }.property('search'),
@@ -267,6 +286,9 @@ module.exports = Em.Component.extend(require('ember-field-mixin'), {
     picker1Icon: null,
     picker2Icon: null,
 
+    picker1Tooltip: i18nContext.tProperty('picker1Tooltip'),
+    picker2Tooltip: i18nContext.tProperty('picker2Tooltip'),
+
     hasPreCt: function() {
         return (this.get('prefix') || this.get('icon'));
     }.property('prefix', 'icon'),
@@ -281,12 +303,16 @@ module.exports = Em.Component.extend(require('ember-field-mixin'), {
 
         didClickPicker1: function() {
             if (!this.get('disabled') && !this.get('readonly')) {
+                this.sendAction('picker1Clicked')
+                this.container.lookup('util:tooltip').hide()
                 this.didClickPicker1();
             }
         },
 
         didClickPicker2: function() {
             if (!this.get('disabled') && !this.get('readonly')) {
+                this.sendAction('picker2Clicked')
+                this.container.lookup('util:tooltip').hide()
                 this.didClickPicker2();
             }
         },
@@ -347,6 +373,10 @@ module.exports = Em.Component.extend(require('ember-field-mixin'), {
     paddingDependenciesDidChange: function() {
         Em.run.schedule('afterRender', this, this.adjustPadding);
     }.observes('prefix', 'suffix', 'reset', 'picker1Icon', 'icon'),
+
+    showTooltip: function(message) {
+        this.container.lookup('util:tooltip').scheduleShow(this, message, 'topRight')
+    },
 
     innerTextFieldClass: require('./inner-text-field')
 });
